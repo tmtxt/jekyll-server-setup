@@ -12,7 +12,7 @@
     - rvm
   tasks:
     - name: check if jekyll is already install
-      command: sudo -iu {{jekyll_user}} bash -c '. ~/.rvm/scripts/rvm; gem list'
+      command: sudo -iu {{jekyll_user}} bash -c '. ~/.rvm/scripts/rvm; gem query -n "^jekyll$"'
       register: jekyll_check_result
       changed_when: False
 
