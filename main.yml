@@ -1,7 +1,9 @@
 ---
 - hosts: all
   vars:
-    jekyll_user: jekyll
-    project_user: "{{jekyll_user}}"
+    project_user: jekyll
+    jekyll_user: "{{project_user}}"
+    rvm_user: "{{jekyll_user}}"
   roles:
     - user
+    - rvm
