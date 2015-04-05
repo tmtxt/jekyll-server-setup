@@ -6,4 +6,5 @@
     rvm_user: "{{jekyll_user}}"
   roles:
     - user
+    - gpg
     - rvm
