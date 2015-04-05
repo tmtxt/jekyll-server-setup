@@ -5,6 +5,7 @@
     jekyll_user: "{{project_user}}"
     rvm_user: "{{jekyll_user}}"
   roles:
+    - apt
     - user
     - gpg
     - rvm
