@@ -3,6 +3,8 @@
   vars:
     project_user: jekyll
     jekyll_user: "{{project_user}}"
+    source_path: "."
+    dest_path: "./_site"
     rvm_user: "{{jekyll_user}}"
     rvm_ruby_version: 2.1.4
   roles:
@@ -19,3 +21,14 @@
     - name: install jekyll
       command: sudo -iu {{jekyll_user}} bash -c '. ~/.rvm/scripts/rvm; gem install jekyll'
       when: jekyll_check_result.stdout.find('jekyll') == -1
+
+      # jekyll uses execjs, which requires a js runtime, I don't want to pullute
+      # with other stuff on my VPS so I use therubyracer gem here
+    - name: check if therubyracer is already install
+      command: sudo -iu {{jekyll_user}} bash -c '. ~/.rvm/scripts/rvm; gem query -n "^therubyracer$"'
+      register: rubyracer_check_result
+      changed_when: False
+
+    - name: install therubyracer
+      command: sudo -iu {{jekyll_user}} bash -c '. ~/.rvm/scripts/rvm; gem install therubyracer'
+      when: rubyracer_check_result.stdout.find('therubyracer') == -1
